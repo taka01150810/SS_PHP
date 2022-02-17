@@ -43,5 +43,28 @@ print $sum;//結果：1100
 具体的には、以下の型だけを利用できます。整数（int）、小数（float）、文字列（string）、true／false（bool）、null、以上の値を含んだ配列
 
 */
+print '<br/>';
+// 2.2.3 define関数
+/*
+定数は、（const以外にも）defineで定義することができる。
+①if／whileなどの制御命令、functionの配下ではconstを利用できない。
+②変数,関数の戻り値をconstは設定できない。
+*/
+define('TAX_DEFINE',1.1);
+$price = 1000;
+$sum = $price * TAX_DEFINE;
+print $sum;//結果：1100
+
+print '<br/>';
+//②の具体例
+$x = [];
+// constVALUE = $x;
+// constMAIN = dirname(__FILE__).'/const.php'; //結果 syntax error
+// constでは変数の値や演算の結果を定数に割り当てられない
+
+define('VALUE',$x);
+define('MAIN',dirname(__FILE__).'/const.php');
+print MAIN;//結果 /Applications/MAMP/htdocs/独習PHP/PHPの基本/const.php
+
 
 ?>
