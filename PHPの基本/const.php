@@ -66,5 +66,21 @@ define('VALUE',$x);
 define('MAIN',dirname(__FILE__).'/const.php');
 print MAIN;//結果 /Applications/MAMP/htdocs/独習PHP/PHPの基本/const.php
 
+// 2.2.4 定義済みの定数
+/* 
+PHPには、最初から用意された（定義済みの）定数が用意されています。
+定義済みの定数は、const／defineで宣言することなく、無条件に利用できます。
+*/
+print '<br/>';
+print __FILE__;//実行中のファイル名
+
+print '<br/>';
+print __DIR__;//実行中のフォルダ名
+
+print '<br/>';
+print __LINE__;//実行中の行番号
+
+print '<br/>';
+print PHP_VERSION;//使用しているPHPのバージョン
 
 ?>
