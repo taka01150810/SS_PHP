@@ -109,4 +109,48 @@ PHPでは、タブや改行など特殊な意味を持つ（ディスプレイ�
 $str = 'エスケープシーケンスを表すのは\\';//結果 エスケープシーケンスを表すのは\
 print $str;
 
+print '<br/>';
+//2.3.6 ヒアドキュメント
+/*
+文字列リテラルを表すもう1つの方法として、ヒアドキュメントという仕組みがあります。
+ヒアドキュメントは、改行を含むような長い文字列を表すのに適した記法です。
+ヒアドキュメントでは「<<<EOD」から「EOD;」までを文字列リテラルとみなします。
+*/
+$str='PHP（PHP:HypertextPreprocessor）';
+$msg = <<<EOD
+{$str}は、サーバーサイドで動作する簡易なスクリプト言語です。まずは、本書でじっくり基礎固めしましょう。<br/>
+"Let's start, everyone!!"
+EOD;
+print $msg;
+/*
+結果 PHP（PHP:HypertextPreprocessor）は、サーバーサイドで動作する簡易なスクリプト言語です。まずは、本書でじっくり基礎固めしましょう。
+"Let's start, everyone!!"
+*/
+
+print '<br/>';
+
+//(補足) 補足インデントの除去
+//ヒアドキュメントでは、先頭部分空白が除去される。
+$msg_intend_remove = <<<EOD
+  {$str}は、サーバーサイドで動作する簡易なスクリプト言語です。
+  まずは、本書でじっくり基礎固めしましょう。<br/>
+  "Let's start,everyone!!"
+  EOD;
+print $msg_intend_remove;
+/*
+結果 PHP（PHP:HypertextPreprocessor）は、サーバーサイドで動作する簡易なスクリプト言語です。まずは、本書でじっくり基礎固めしましょう。
+"Let's start, everyone!!"
+*/
+
+// $msg_intend_remove = <<<EOD
+//   {$str}は、サーバーサイドで動作する簡易なスクリプト言語です。
+//   まずは、本書でじっくり基礎固めしましょう。<br/>
+// "Let's start,everyone!!"
+//   EOD;
+// print $msg_intend_remove;
+
+/*
+結果 Invalid body indentation level (expecting an indentation level of at least 2)」（不正なインデント階層（少なくとも2個のインデントが必要））
+*/
+
 ?>
