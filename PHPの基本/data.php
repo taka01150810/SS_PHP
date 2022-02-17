@@ -153,4 +153,10 @@ print $msg_intend_remove;
 結果 Invalid body indentation level (expecting an indentation level of at least 2)」（不正なインデント階層（少なくとも2個のインデントが必要））
 */
 
+//2.3.7 null
+$n1; //値が代入されていないのでnull
+$n2 = null;// 明示的にnullを代入
+print $n1;//結果 Undefined variableエラー
+print $n2;//結果 何もなし
+
 ?>
