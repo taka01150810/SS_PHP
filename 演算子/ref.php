@@ -26,3 +26,82 @@ $x = 1;
 $y =& $x; //$xのアドレスを$yにコピー
 $x = 5; //$xの値を変更
 print $y; //結果：5（$yも影響を受ける）
+
+print '<br/>';
+//3.2.2 分割代入
+/*
+分割代入とは、配列／連想配列などを分解し、配下の要素を個々の変数に代入するための構文です。
+*/
+$data = [1, 2, 3, 4, 5];
+[$a, $b, $c, $d, $e] = $data;
+print $a;//結果：1
+print $b;//結果：2
+print $c;//結果：3
+print $d;//結果：4
+print $e;//結果：5
+
+print '<br/>';
+/*
+この際、左辺の要素数は右辺（配列）のそれと等しいか、少なくなければなりません。
+*/
+$data_1 = [1, 2, 3, 4];
+[$a_1, $b_1, $c_1, $d_1, $e_1] = $data_1;
+print $a_1;//結果：1
+print $b_1;//結果：2
+print $c_1;//結果：3
+print $d_1;//結果：4
+print $e_1;//結果：なし(警告 Notice: Undefined offset)
+
+print '<br/>';
+$data_2 = [1, 2, 3, 4, 5];
+[$a_2, $b_2, $c_2] = $data_2;
+print $a_2;//結果：1
+print $b_2;//結果：2
+print $c_2;//結果：3
+print $d_2;//結果：なし(警告 Notice: Undefined variable)
+
+//一部の要素を切り捨てる
+print '<br/>';
+$data_3 = [1, 2, 3, 4, 5];
+[ , $a_3, , $b_3, $c_3] = $data_3;
+print $a_3;//結果：2
+print $b_3;//結果：4
+print $c_3;//結果：5
+
+//一部の要素を取得する
+print '<br/>';
+$data_4 = [1, 2, 3, 4, 5];
+[1 => $a_4, 4 => $b_4 ] = $data_4;
+print $a_4;//結果：2
+print $b_4;//結果：5
+
+print '<br/>';
+//連想配列の場合
+$map = [ 'title' => '独習Python', 'price' => 3000];
+[ 'title' => $title, 'price' => $price] = $map;
+print $title;//結果：独習Python
+print $price;//結果：3000
+
+print '<br/>';
+//入れ子の配列を分割する
+$data_5 = [1,2, [31, 32, 33]];
+[$a_5, $b_5, $c_5] = $data_5;
+print_r($a_5);//結果：1
+print_r($b_5);//結果：2
+print_r($c_5);//結果：Array ( [0] => 31 [1] => 32 [2] => 33 )
+
+print '<br/>';
+[$x_5, $y_5, [$z1_5, $z2_5, $z3_5]] = $data_5;
+print $x_5;//結果：1
+print $y_5;//結果：2
+print $z1_5;//結果：31
+print $z2_5;//結果：32
+print $z3_5;//結果：33
+
+print '<br/>';
+//変数のスワッピング
+$x_6 = 15;
+$y_6 = 38;
+[$y_6, $x_6] = [$x_6, $y_6];
+print $x_6;//結果：38
+print $y_6;//結果：15
