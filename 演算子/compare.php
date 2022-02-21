@@ -13,3 +13,12 @@ var_dump('X' == 0);//結果 bool(true)
 var_dump('3.14' == '3.14000');//結果 bool(true)
 var_dump('3.14E2' == '314');//結果 bool(true)
 var_dump('13xyz' == '13');//結果 bool(false)
+
+print '<br/>';
+//3.3.2 厳格な等価演算子( === )
+/*
+「===」演算子は「厳密な等価演算子」とも呼ばれ、値を比較する際に値とデータ型が厳密に一致するかどうかを判定します。
+*/
+var_dump('3.14E2' === 314);//結果 bool(false)
+var_dump('X' === 0);//結果 bool(false)
+var_dump('1' === 1);//結果 bool(false)
