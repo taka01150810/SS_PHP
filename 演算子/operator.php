@@ -76,3 +76,28 @@ print '<br/>';
 $add = bcadd( 0.1, 0.7, 1 );//0.1＋0.7を小数点以下1桁まで計算する
 $mul = bcmul( $add, 10, 1 );
 print floor( $mul );//結果：8
+
+print '<br/>';
+//3.1.5 配列の結合
+/*
+左の配列に存在しないキーの要素を右の配列から取り出し、左の配列に追加される。
+つまり、右の配列に左の配列と同じキーがあった場合、その値は無視されます。
+*/
+$assoc1 = [
+    'Apple' => 'Red',
+    'Orange' => 'Yellow',
+    'Melon' => 'Green',
+];
+$assoc2 = [
+    'Grape' => 'Purple',
+    'Apple' => 'Green',
+    'Strawberry' => 'Red',
+];
+$result = $assoc1 + $assoc2;
+print_r($result);//結果 Array ( [Apple] => Red [Orange] => Yellow [Melon] => Green [Grape] => Purple [Strawberry] => Red )
+
+print '<br/>';
+$ary1 = [1,3,5];
+$ary2 = [2,3,6];
+$result = $ary1 + $ary2;
+print_r($result);//結果 Array ( [0] => 1 [1] => 3 [2] => 5 )
