@@ -33,3 +33,29 @@ $x = 0.123456;
 $y = 0.123455;
 
 var_dump(abs($x - $y) < EPSILON );//結果 bool(true)
+
+print '<br/>';
+//3.3.4 配列の比較
+/*
+配列の比較は、次の順序で行われます（図3.8）。
+1．要素数で比較（要素数の少ない配列がより小さい）
+2．要素数が等しい場合、同じキーを持つ要素同士で値の大小を比較（より大きい要素／より小さい要素が見つかったところで判定を終了）
+3．1.、2.の比較がすべて等しい場合、両者は等しいとみなされる。
+*/
+$data01 = [1, 2, 3];
+$data02 = [1, 5];
+var_dump($data01 < $data02);//結果 bool(false)
+
+$data11 = [1, 2, 3];
+$data12 = [1, 5, 1];
+var_dump($data11 < $data12);//結果 bool(true)
+
+$data21 = [1, 2, 3];
+$data22 = [1, 2, '3'];
+var_dump($data21 == $data22);//結果 bool(true)
+var_dump($data21 === $data22);//結果 bool(false)
+
+$data31 = ['A' => 'a', 'B' => 'b', 'C' => 'c'];
+$data32 = ['A' => 'a', 'C' => 'c', 'B' => 'b'];
+var_dump($data31 == $data32);//結果 bool(true)
+var_dump($data31 === $data32);//結果 bool(true)
