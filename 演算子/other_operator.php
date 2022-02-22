@@ -21,3 +21,11 @@ print '<br/>';
 $x_1 = '0xFF';
 $y_1 = '1.5E2';
 print $x_1.$y_1;//結果 0xFF1.5E2
+
+print '<br/>';
+//3.6.2 実行演算子
+/*
+実行演算子（`）は、バッククォートで囲んだブロックを、シェルコマンドとして実行します。
+*/
+$result = `ls`;//ls コマンドを実行
+print $result;//結果 compare.php operator.php other_operator.php ref.php shortcut.php
