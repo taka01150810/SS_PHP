@@ -86,3 +86,34 @@ for($i = 1;$i <= 10;$i++){
 4  8  12  16  20  24  28  32  36  
 5  10  15  20  25  30  35  40  
 */
+
+print '<br/>';
+/*
+4.3.4 switchブロック配下のcontinue命令
+switchブロックの中では、continue命令はbreak命令と同じように動作するので要注意である。
+*/
+//$iを1～3で変化させるループ
+for($i = 1;$i < 4;$i++){
+    $result = 0;
+    switch($i){
+        case 1:
+        case 3://$i=1、3の場合のみ変数$resultを計算
+            $result= $i * $i;
+        break;
+        case 2:
+        continue;
+    }
+    print "{$i}の2乗は{$result}です。<br/>";
+}
+/*
+期待の結果
+1の2乗は1です。3の2乗は9です。
+*/
+/*
+実際の結果
+Warning: "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"?
+1の2乗は1です。
+2の2乗は0です。
+3の2乗は9です。
+*/
+//「$i=2」の周回をスキップさせたい場合には、太字部分を「continue 2;」のように書き換える必要がある。
