@@ -60,3 +60,28 @@ print mb_strstr($str, 'S');//結果 Sプロジェクト
 print '<br/>';
 print mb_strstr($str, 'M', false);//結果 false(何も表示されない)
 print '<br/>';
+
+//5.2.5 部分文字列を置換する str_replace関数
+/*
+構文
+str_replace(string|array $search, string|array $replace,string|array $subject
+[,int&$count]):string|array
+
+$search：置き換える部分文字列
+$replace：置き換え後の文字列
+$subject：対象の文字列
+&$count：置き換えた文字列の個数を格納する変数
+*/
+$str = 'にわにはにわにわとりがいる';
+print str_replace('にわ', 'ニワ', $str, $cnt);//結果 ニワにはニワニワとりがいるd
+print '<br/>';
+print "{$cnt}個の置き換えをしました。";//結果 3個の置き換えをしました。
+
+print '<br/>';
+//引数$search、$replace、$subjectには、それぞれ配列を渡すこともできます
+$str = ['PHPは良い言語です。','PHPは良いサーバー実行環境です。'];
+$src = ['PHP','良い'];
+$rep = ['PHP8','素晴らしい'];
+print_r(str_replace($src, $rep, $str, $cnt));//結果 Array ( [0] => PHP8は素晴らしい言語です。 [1] => PHP8は素晴らしいサーバー実行環境です。 )
+print '<br/>';
+print "{$cnt}個の置き換えをしました。";//結果 4個の置き換えをしました。
