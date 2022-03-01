@@ -40,3 +40,14 @@ print mb_convert_case($data_3, MB_CASE_UPPER);//結果 FUSSBALL
 print '<br/>';
 print mb_convert_case($data_3, MB_CASE_UPPER_SIMPLE);//結果 FUßBALL
 print '<br/>';
+
+//5.2.3 部分文字列を取得する① mb_substr関数
+$str = 'WINGSプロジェクト';
+print mb_substr($str, 5, 2);//結果 プロ
+print '<br/>';
+print mb_substr($str, 5);//結果 プロジェクト
+print '<br/>';
+print mb_substr($str, 5, -4);//結果 プロ
+print '<br/>';
+print mb_substr($str, -6, 2);//結果 プロ
+print '<br/>';
