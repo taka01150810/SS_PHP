@@ -18,4 +18,25 @@ print '<br/>';
 英数字（半角文字）であれば1文字は1バイトで表されるので、問題はありません。
 しかし、日本語（マルチバイト文字）の1文字が何バイトで表されるかは、利用している文字エンコーディングによって異なります。
 */
-print strlen($str);//結果23
+print strlen($str);//結果 23
+
+print '<br/>';
+//5.2.2 文字列を大文字⇆小文字で変換する mb_convert_case関数
+$data_1 = 'Wings project';
+$data_2 = 'W I N G Sプロジェクト';
+$data_3 = 'Fußball';//ドイツ語のß（エスツェット）は「ss」を表す
+
+print mb_convert_case($data_1, MB_CASE_UPPER);//結果 WINGS PROJECT
+print '<br/>';
+print mb_convert_case($data_1, MB_CASE_LOWER);//結果 wings project
+print '<br/>';
+print mb_convert_case($data_1, MB_CASE_TITLE);//結果 Wings Project
+print '<br/>';
+print mb_convert_case($data_2, MB_CASE_LOWER);//結果 w i n g sプロジェクト
+print '<br/>';
+print mb_convert_case($data_2, MB_CASE_UPPER);//結果 W I N G Sプロジェクト
+print '<br/>';
+print mb_convert_case($data_3, MB_CASE_UPPER);//結果 FUSSBALL
+print '<br/>';
+print mb_convert_case($data_3, MB_CASE_UPPER_SIMPLE);//結果 FUßBALL
+print '<br/>';
