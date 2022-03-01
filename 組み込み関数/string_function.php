@@ -51,3 +51,12 @@ print mb_substr($str, 5, -4);//結果 プロ
 print '<br/>';
 print mb_substr($str, -6, 2);//結果 プロ
 print '<br/>';
+
+//5.2.4 部分文字列を取得する② mb_strstr関数
+$str = 'WINGSプロジェクト';
+print mb_strstr($str, 'S', true);//結果 WING
+print '<br/>';
+print mb_strstr($str, 'S');//結果 Sプロジェクト
+print '<br/>';
+print mb_strstr($str, 'M', false);//結果 false(何も表示されない)
+print '<br/>';
