@@ -96,3 +96,41 @@ print '<br/>';
 print_r(explode('と', $data, 2));//結果 Array ( [0] => リオ [1] => ニンザブロウとナミとリンリン )
 print '<br/>';
 print_r(explode('と', $data, -2));//結果 Array ( [0] => リオ [1] => ニンザブロウ )
+
+print '<br/>';
+//5.2.7 特定の文字位置を検索する mb_strpos／mb_strrpos関数
+/* 構文
+mb_strpos(string($haystack),string($needle) [,int($offset)] [,?string($encoding)]]):int|false
+
+mb_strrpos(string($haystack),string($needle)[,int($offset)[,?string($encoding)]]):int|false
+
+$haystack：検索対象の文字列
+$needle：検索文字列
+$offset：検索開始位置
+$encoding：使用する文字エンコーディング（省略時はdefault_charsetパラメーターの値）
+*/
+/*
+mb_strpos関数とmb_strrpos関数との違いは、検索文字列が最初に現れた位置を返すか（mb_strpos関数）、最後に現れた位置を返すか（mb_strrpos関数）です。
+mb_strpos／mb_strrpos関数のいずれも、部分文字列が見つからなかった場合にはfalseを、見つかった場合には先頭文字を0とした場合の文字位置を返します。
+*/
+$str = 'にわにはにわにわとりがいる';
+print mb_strpos($str, 'にわ');//結果 0
+print '<br/>';
+print mb_strpos($str, 'にわ', 2);//結果 4
+print '<br/>';
+print mb_strpos($str, 'にわ', -10);//結果 4
+print '<br/>';
+print mb_strrpos($str, 'かに');//結果 false
+print '<br/>';
+print mb_strrpos($str, 'にわ');//結果 6
+print '<br/>';
+print mb_strrpos($str, 'にわ', -8);//結果 4
+
+print '<br/>';
+if(mb_strpos($str, 'にわ') != false){
+    print '文字列が見つかりました。';
+}//結果：なにも表示されない
+/*
+このコードでは、期待した結果を得られません。mb_strpos／mb_strrpos関数の戻り値が0である場合、「=」「!=」演算子ではfalseとみなされてしまうのです。
+0とfalseを区別するには、厳密な等価演算子を使う必要があります。「!=」を「!==」に変更すれば表示される
+*/
