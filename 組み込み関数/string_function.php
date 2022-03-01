@@ -85,3 +85,14 @@ $rep = ['PHP8','素晴らしい'];
 print_r(str_replace($src, $rep, $str, $cnt));//結果 Array ( [0] => PHP8は素晴らしい言語です。 [1] => PHP8は素晴らしいサーバー実行環境です。 )
 print '<br/>';
 print "{$cnt}個の置き換えをしました。";//結果 4個の置き換えをしました。
+
+print '<br/>';
+//5.2.6 文字列を特定の区切り文字で分割する　explode関数
+$data = 'リオとニンザブロウとナミとリンリン';
+print_r(explode('と', $data));//結果 Array ( [0] => リオ [1] => ニンザブロウ [2] => ナミ [3] => リンリン )
+print '<br/>';
+print_r(explode('や', $data));//結果 Array ( [0] => リオとニンザブロウとナミとリンリン )
+print '<br/>';
+print_r(explode('と', $data, 2));//結果 Array ( [0] => リオ [1] => ニンザブロウとナミとリンリン )
+print '<br/>';
+print_r(explode('と', $data, -2));//結果 Array ( [0] => リオ [1] => ニンザブロウ )
