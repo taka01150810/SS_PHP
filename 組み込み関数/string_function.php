@@ -134,3 +134,19 @@ if(mb_strpos($str, 'にわ') != false){
 このコードでは、期待した結果を得られません。mb_strpos／mb_strrpos関数の戻り値が0である場合、「=」「!=」演算子ではfalseとみなされてしまうのです。
 0とfalseを区別するには、厳密な等価演算子を使う必要があります。「!=」を「!==」に変更すれば表示される
 */
+
+print '<br/>';
+//5.2.8 部分文字列の登場回数をカウントする
+/* 構文
+mb_substr_count(string($haystack),string($needle)[,?string($encoding)]):int
+
+$haystack：検索対象の文字列
+$needle：検索文字列
+$encoding：使用する文字エンコーディング（省略時はdefault_charsetパラメーターの値）
+*/
+$str = 'にわにはにわにわとりがいる';
+print mb_substr_count($str, 'にわ');//結果 3
+print '<br/>';
+$str='いちいちいちばにいち';
+print mb_substr_count($str,'いちいち');//結果：1
+//一見すると、「いちいち」は0～3文字目、2～5文字目に2か所あるように見えますが、mb_substr_count関数は重複のない出現数をカウントする。
