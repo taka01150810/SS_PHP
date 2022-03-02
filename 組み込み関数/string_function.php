@@ -263,3 +263,25 @@ $to_encoding = 変換後の文字コード
 $from_encoding = 変換前の文字コード
 */
 file_put_contents('result.txt', mb_convert_encoding('こんにちは、赤ちゃん!','UTF8','UTF8, JIS, JIS'));
+
+//5.2.4 電子メールを送信する
+$to = 'ja0915fi@ed.ritsumei.ac.jp';
+$subject = '独習PHP改訂版';
+$body = 'ヤッホー';
+$headers = "From: ja0915fi@ed.ritsumei.ac.jp\n";
+$headers .= "Cc: ja0915fi@ed.ritsumei.ac.jp\n";
+$headers .= "X-Mailer : PHP8\n";
+if(mb_send_mail($to, $subject, $body, $headers)){
+    print 'メール送信に成功しました';
+} else {
+    print 'メール送信に失敗しました';
+}
+/*
+php.iniの設定
+
+; メール送信に利用する文字コード
+mbstring.language = Japanese
+
+sendmailへのパス
+sendmail_path =  sendmail -t -i -f ja0915fi@ed.ritsumei.ac.jp
+*/
