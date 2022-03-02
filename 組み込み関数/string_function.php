@@ -253,3 +253,13 @@ vprintf('%sは%sです。',['ニンザブロウ','ハムスター']);//結果 �
 print '<br/>';
 print vsprintf('%sは%sです。',['ニンザブロウ','ハムスター']);//結果 ニンザブロウはハムスターです。
 print '<br/>';
+
+//5.2.13 文字エンコーディングを変換する  mb_convert_encoding関数
+/*
+mb_convert_encoding('$string', '$to_encoding', '$from_encoding');
+
+$string = 任意の文字列
+$to_encoding = 変換後の文字コード
+$from_encoding = 変換前の文字コード
+*/
+file_put_contents('result.txt', mb_convert_encoding('こんにちは、赤ちゃん!','UTF8','UTF8, JIS, JIS'));
