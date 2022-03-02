@@ -150,3 +150,26 @@ print '<br/>';
 $str='いちいちいちばにいち';
 print mb_substr_count($str,'いちいち');//結果：1
 //一見すると、「いちいち」は0～3文字目、2～5文字目に2か所あるように見えますが、mb_substr_count関数は重複のない出現数をカウントする。
+
+print '<br/>';
+//5.2.9 文字列に特定の文字列が含まれるかを判定する str_contains
+/*
+文字列に指定された文字列が含まれるかを判定するには、str_contains関数を利用します。
+単に含まれるかだけでなく、ある文字列が先頭／末尾に位置するか（＝文字列がある文字列で始まる／終わるか）を判定するならば
+str_starts_with／str_ends_with関数も利用できます。
+
+構文
+str_contains(string($haystack),string($needle)) : bool
+str_starts_with(string($haystack),string($needle)) : bool
+str_ends_with(string($haystack),string($needle)) : bool
+
+$haystack：検索対象の文字列
+$needle：検索文字列
+*/
+$str = 'WINGSプロジェクト';
+var_dump(str_contains($str, 'プロ'));//結果 bool(true)
+print '<br/>';
+var_dump(str_starts_with($str, 'WINGS'));//結果 bool(true)
+print '<br/>';
+var_dump(str_ends_with($str, 'WINGS'));//結果 bool(false)
+print '<br/>';
