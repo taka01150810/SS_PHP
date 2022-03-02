@@ -173,3 +173,32 @@ var_dump(str_starts_with($str, 'WINGS'));//結果 bool(true)
 print '<br/>';
 var_dump(str_ends_with($str, 'WINGS'));//結果 bool(false)
 print '<br/>';
+
+//5.2.10 文字列の前後から空白を除去する  trim／ltrim／rtrim関数
+/*
+trim／ltrim／rtrim関数を利用することで、文字列前後の空白を除去できます。
+trim関数は前後双方の空白、ltrim関数は前方だけの空白、rtrim関数は後方だけの空白を、それぞれ除去します。
+
+trimは、あくまで文字列の前後から文字を取り除くための関数です。
+文字列に含まれる文字まで除去するならば、str_replace関数を利用してください。
+
+構文
+trim(string $string[, string $characters = "\n\r\t\v\0"]):string
+ltrim(string $string[, string $characters = "\n\r\t\v\0"]):string
+rtrim(string $string[, string $characters = "\n\r\t\v\0"]):string
+
+$string：対象の文字列
+$characters：除去する文字
+*/
+$str = "  こんにちは    ";
+var_dump($str);//結果 string(22) " こんにちは "
+print '<br/>';
+var_dump(trim($str));//結果 string(15) "こんにちは"
+print '<br/>';
+var_dump(ltrim($str));//結果 string(15) "こんにちは  "
+print '<br/>';
+var_dump(rtrim($str));//結果 string(15) "  こんにちは"
+
+print '<br/>';
+$str_2 = '!=====[独習PHP]=====!';
+var_dump(trim($str_2, "! = []"));//結果 string(9) "独習PHP"
