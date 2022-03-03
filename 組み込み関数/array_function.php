@@ -159,3 +159,23 @@ var_dump(array_search(15, $data, true));//結果 bool(false)
 print '<br/>';
 var_dump(array_search(10, $data2));//結果 string(1) "X"
 print '<br/>';
+
+//5.3.9 配列に特定の要素が存在するか確認する in_array関数
+$data = ['PHP','JavaScript','PHP','Java','C#','15'];
+if(!array_search('PHP',$data)){
+    print '見つかりませんでした';//結果 見つかりませんでした
+}
+/*
+このコードの結果は、（目的の要素が存在するにもかかわらず）「見つかりませんでした」となります。これは戻り値の0が暗黙的にfalseとみなされるために生じる現象です。
+この問題を回避するために、array_search関数の戻り値は「===」演算子で判定すべきである。
+*/
+if(array_search('PHP',$data)===false){
+    print '見つかりませんでした';//結果 何も表示されない
+}
+/*
+しかし真偽値を「===」演算子で判定するようなコードは冗長なので、できれば避けたい。
+単に、特定の要素の有無を判定したいならば、専用のin_array関数を利用するのが望ましい。
+*/
+if(!in_array('PHP', $data)){
+    print '見つかりませんでした';//結果 何も表示されない
+}
