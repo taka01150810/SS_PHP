@@ -50,3 +50,26 @@ print '<br/>';
 //5.3.3 配列の各要素を結合する implode関数
 $data = ['PHP','Perl','Ruby','Python','JavaScript'];
 print implode(',',$data);//結果 PHP,Perl,Ruby,Python,JavaScript
+
+//5.3.4 配列の先頭／末尾に要素を追加／削除する  array_push／array_pop／array_shift／array_unshift関数
+$data=['高江','青木','片渕'];
+print array_push($data,'山田','土井');//結果：5（要素数）
+// array_push = 末尾に追加
+print '<br/>';
+print_r($data);//結果：Array([0]=>高江[1]=>青木[2]=>片渕[3]=>山田[4]=>土井)
+print '<br/>';
+print array_pop($data);//結果：土井
+// array_pop = 末尾から除去
+print '<br/>';
+print_r($data);//結果：Array([0]=>高江[1]=>青木[2]=>片渕[3]=>山田)
+print '<br/>';
+print array_shift($data);//結果：高江
+// array_shift = 先頭から除去
+print '<br/>';
+print_r($data);//結果：Array ( [0] => 青木 [1] => 片渕 [2] => 山田 )
+print '<br/>';
+print array_unshift($data, '宮中');//結果：4(要素数)
+// array_unshift = 先頭に追加
+print '<br/>';
+print_r($data);//結果：Array ( [0] => 宮中 [1] => 青木 [2] => 片渕 [3] => 山田 )
+print '<br/>';
