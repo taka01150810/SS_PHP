@@ -179,3 +179,43 @@ if(array_search('PHP',$data)===false){
 if(!in_array('PHP', $data)){
     print '見つかりませんでした';//結果 何も表示されない
 }
+
+print '<br/>';
+//5.3.10 配列の内容を並び替える sort関数
+$data = ['Tennis','Swimming','Soccer','Baseball'];
+sort($data, SORT_STRING);
+print_r($data);//結果 Array ( [0] => Baseball [1] => Soccer [2] => Swimming [3] => Tennis )
+print '<br/>';
+rsort($data, SORT_STRING);
+print_r($data);//結果 Array ( [0] => Tennis [1] => Swimming [2] => Soccer [3] => Baseball )
+print '<br/>';
+
+$data2 = ['Tennis'=> 1,'Swimming'=> 2,'Soccer' => 3,'Baseball' => 4];
+sort($data, SORT_NUMERIC);
+print_r($data2);//結果 Array ( [Tennis] => 1 [Swimming] => 2 [Soccer] => 3 [Baseball] => 4 )
+print '<br/>';
+
+$data3 = ['Tennis'=> 1,'Swimming'=> 1,'Soccer' => 11,'Baseball' => 9];
+asort($data3, SORT_NUMERIC);
+print_r($data3);//結果 Array ( [Tennis] => 1 [Swimming] => 1 [Baseball] => 9 [Soccer] => 11 )
+print '<br/>';
+ksort($data3, SORT_STRING);
+print_r($data3);//結果 Array ( [Baseball] => 9 [Soccer] => 11 [Swimming] => 1 [Tennis] => 1 )
+
+print '<br/>';
+//より人間的なソートの「自然順ソート」
+/*
+自然順ソートとは、文字列と数値混在の値を、より人間が行うのに近い手法で並べ替える手法である
+*/
+$data=['img15.png','img5.png','img2.png','img18.png','img3.png'];
+sort($data,SORT_STRING);
+print_r($data);//結果：Array ( [0] => img15.png [1] => img18.png [2] => img2.png [3] => img3.png [4] => img5.png )
+
+print '<br/>';
+/*
+SORT_STRINGでは辞書順にソートされるので、15、18は2よりも小さいとみなされます。
+しかし、一般的には2、3、5、15、18の順にソートしたいはずです。
+これには、太字部分をSORT_NATURAL（自然順）としてください。
+*/
+sort($data,SORT_NATURAL);
+print_r($data);//結果 Array ( [0] => img2.png [1] => img3.png [2] => img5.png [3] => img15.png [4] => img18.png )
