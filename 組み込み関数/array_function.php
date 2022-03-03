@@ -45,3 +45,8 @@ print '<br/>';
 //結果 配列のキーが重複した場合は（上書きするのではなく）入れ子の配列を生成するarray_merge_recursive関数を使う
 $result = array_merge_recursive($assoc1, $assoc2);
 print_r($result);//結果 Array ( [Apple] => Array ( [0] => Red [1] => Green ) [Orange] => Yellow [Melon] => Green [Grape] => Purple [Strawberry] => Red )
+
+print '<br/>';
+//5.3.3 配列の各要素を結合する implode関数
+$data = ['PHP','Perl','Ruby','Python','JavaScript'];
+print implode(',',$data);//結果 PHP,Perl,Ruby,Python,JavaScript
