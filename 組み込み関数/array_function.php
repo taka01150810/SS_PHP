@@ -112,3 +112,23 @@ print '<br/>';
 print_r(array_shift($data));//結果 10
 print '<br/>';
 print_r($data);//結果 Array ( [0] => 15 [1] => 30 )
+
+print '<br/>';
+//5.3.6 配列に複数要素を追加/置換/削除する array_splice関数
+$data = ['高江','青木','片渕','和田','花田','佐藤'];
+print_r(array_splice($data, 2, 3, ['日尾','掛谷','薄井']));//結果 Array ( [0] => 片渕 [1] => 和田 [2] => 花田 )
+print '<br/>';
+print_r($data);//結果 Array ( [0] => 高江 [1] => 青木 [2] => 日尾 [3] => 掛谷 [4] => 薄井 [5] => 佐藤 )
+print '<br/>';
+print_r(array_splice($data, -3, -2, ['長田','杉谷']));//結果 Array ( [0] => 掛谷 )
+print '<br/>';
+print_r($data);//結果 Array ( [0] => 高江 [1] => 青木 [2] => 日尾 [3] => 長田 [4] => 杉谷 [5] => 薄井 [6] => 佐藤 )
+print '<br/>';
+print_r(array_splice($data, 3));//結果 Array ( [0] => 長田 [1] => 杉谷 [2] => 薄井 [3] => 佐藤 )
+print '<br/>';
+print_r($data);//結果 Array ( [0] => 高江 [1] => 青木 [2] => 日尾 )
+print '<br/>';
+print_r(array_splice($data, 1, 0, ['山田', '矢吹']));//結果 Array ( )
+print '<br/>';
+print_r($data);//結果 Array ( [0] => 高江 [1] => 山田 [2] => 矢吹 [3] => 青木 [4] => 日尾 )
+print '<br/>';
