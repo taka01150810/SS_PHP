@@ -143,3 +143,19 @@ print_r(array_slice($data, 4));//結果 Array ( [0] => 花田 [1] => 佐藤 )
 print '<br/>';
 print_r(array_slice($data, -4, -3));//結果 Array ( [0] => 片渕 )
 print '<br/>';
+
+//5.3.8 配列の内容を検索する array_search関数
+$data = ['PHP','JavaScript','PHP','Java','C#','15'];
+$data2 = ['X' => 10, 'Y' => 20, 'Z' => 30];
+var_dump(array_search('JavaScript', $data));//結果 int(1)
+print '<br/>';
+var_dump(array_search('PHP', $data));//結果 int(0)
+print '<br/>';
+var_dump(array_search('JAVA', $data));//結果 bool(false)
+print '<br/>';
+var_dump(array_search(15, $data));//結果 int(5)
+print '<br/>';
+var_dump(array_search(15, $data, true));//結果 bool(false)
+print '<br/>';
+var_dump(array_search(10, $data2));//結果 string(1) "X"
+print '<br/>';
