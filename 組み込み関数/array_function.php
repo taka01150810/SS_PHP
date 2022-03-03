@@ -73,3 +73,42 @@ print array_unshift($data, '宮中');//結果：4(要素数)
 print '<br/>';
 print_r($data);//結果：Array ( [0] => 宮中 [1] => 青木 [2] => 片渕 [3] => 山田 )
 print '<br/>';
+//5.3.5 スタックとキュー
+/*
+スタック（Stack）は、後入れ先出し（LIFO：LastInFirstOut）または先入れ後出し（FILO：FirstInLastOut）とも呼ばれる構造のことです。
+たとえばアプリでよくあるUndo機能では、操作を履歴に保存し、最後に行った操作から順に取り出しますが、このような操作に使われるのがスタックです。
+あるいは、キャリアカー（乗用車を運搬するためのトラック）をイメージしてみるとよいかもしれません。
+この場合、順番に積み込んだ乗用車は、最後に積み込んだものからしか降ろすことはできません。
+
+このようなスタック構造は、array_push関数（またはブラケット構文）とarray_pop関数によって表現できます。
+array_push関数でキャリアカーに車を載せ、array_pop関数で車を降ろすのです。
+*/
+$data = [];
+array_push($data, 10);
+array_push($data, 15);
+array_push($data, 30);
+
+print_r($data);//結果 Array ( [0] => 10 [1] => 15 [2] => 30 )
+print '<br/>';
+print(array_pop($data));//結果 30
+print '<br/>';
+print_r($data);//結果 Array ( [0] => 10 [1] => 15 )
+
+print '<br/>';
+/*
+キュー（Queue）は、（LIFO／FILOに対して）先入れ先出し（FIFO：FirstInFirstOut）とも呼ばれる構造のことです。
+待ち行列と呼ばれることもあります。
+イメージとしては、スーパーのレジに並ぶ人を思い浮かべればよいでしょう。この場合、レジに先に並んだ人が最初に精算を終え、出ていくことができます。
+
+このようなキュー構造を表現するには、array_push関数（またはブラケット構文）とarray_shift関数の組み合わせを利用します。
+*/
+$data = [];
+array_push($data, 10);
+array_push($data, 15);
+array_push($data, 30);
+
+print_r($data);//結果 Array ( [0] => 10 [1] => 15 [2] => 30 )
+print '<br/>';
+print_r(array_shift($data));//結果 10
+print '<br/>';
+print_r($data);//結果 Array ( [0] => 15 [1] => 30 )
