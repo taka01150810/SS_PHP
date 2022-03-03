@@ -132,3 +132,14 @@ print_r(array_splice($data, 1, 0, ['山田', '矢吹']));//結果 Array ( )
 print '<br/>';
 print_r($data);//結果 Array ( [0] => 高江 [1] => 山田 [2] => 矢吹 [3] => 青木 [4] => 日尾 )
 print '<br/>';
+
+//5.3.7 配列から特定範囲の要素を取得する array_slice関数
+$data = ['高江','青木','片渕','和田','花田','佐藤'];
+print_r(array_slice($data, 2, 3));//結果 Array ( [0] => 片渕 [1] => 和田 [2] => 花田 )
+print '<br/>';
+print_r(array_slice($data, 2, 3, true));//Array ( [2] => 片渕 [3] => 和田 [4] => 花田 )
+print '<br/>';
+print_r(array_slice($data, 4));//結果 Array ( [0] => 花田 [1] => 佐藤 )
+print '<br/>';
+print_r(array_slice($data, -4, -3));//結果 Array ( [0] => 片渕 )
+print '<br/>';
