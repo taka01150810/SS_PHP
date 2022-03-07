@@ -350,3 +350,29 @@ foreach(array_map(null,$data,$data2)as[$v1,$v2]){
     print "{$v1}:{$v2}<br/>";
 }
 //結果 ぱんだ:panda うさぎ:rabbit こあら:koala
+
+//5.3.13 配列の内容を特定の条件で絞り込む  array_filter関数
+/* 構文
+array_filter($array, $callback[$mode])
+
+$array：元の配列
+$callback：要素のtrue／falseを判定する処理
+$mode：動作オプション
+*/
+$data = ['フレンチブルドッグ','ヨークシャーテリア','ダックスフント','ポメラニアン','コーギー'];
+$result = array_filter($data,
+    function($v){
+        return mb_strlen($v) < 8;
+    }
+);
+print_r($result);//結果 Array ( [2] => ダックスフント [3] => ポメラニアン [4] => コーギー )
+
+/*
+コールバック関数（引数$callback）の条件は
+1.引数として個々の要素を受け取り（ここでは$v）
+2.結果に要素を残すならばtrue、除去するならばfalseを返す
+
+ただし、引数$modeの値によって、コールバック関数が受け取るべき引数は変化します。
+ARRAY_FILTER_USE_KEY(キーを引数として渡す(値は渡さない))
+ARRAY_FILTER_USE_BOTH(値/キーの双方を渡す)
+*/
