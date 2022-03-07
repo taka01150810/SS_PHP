@@ -298,3 +298,55 @@ $average = $sum / $count;
 print "要素の個数:{$count}";//要素の個数:4
 print "合計値:{$sum}";//合計値:13
 print "平均値:{$average}";//平均値:3.25
+
+print '<br/>';
+//5.3.11 配列内の要素を加工する array_map関数
+/* 構文
+array_map($callback, $array/$arrays)
+
+$callback：配列を加工するための関数
+$array／$arrays：加工対象の配列
+
+コールバック関数（引数$callback）の条件は
+1.引数として個々の要素を受け取り（ここでは$v）
+2.戻り値として加工後の値を返す
+*/
+$data = [1,2,3];
+$result = array_map(
+    function($v){
+        return $v * $v;
+    },$data
+);
+print_r($result);//結果：Array([0]=>1 [1]=>4 [2]=>9)
+
+print '<br/>';
+//複数の配列を処理する
+/*
+処理対象の配列（引数$array／$arrays）を複数列挙した場合には、無名関数（引数$func）の側も、配列の数だけ引数を受け取る必要があります。この例であれば、$v1／$v2がそれです。
+渡す配列の要素数は互いに異なっていてもかまいませんが、要素が不足した側はnull値として扱われます。この例であれば、最後の要素は「6*null（0）」で0となります。
+*/
+$data = [1, 3, 5, 6];
+$data_2 = [2, 7, 10];
+$result = array_map(
+    function($v1, $v2){
+        return $v1 * $v2;
+    }, $data, $data_2
+);
+print_r($result);//結果 Array ( [0] => 2 [1] => 21 [2] => 50 [3] => 0 )
+
+print '<br/>';
+//引数$callbackをnullとした場合
+$data = ['ぱんだ','うさぎ','こあら'];
+$data2 = ['panda','rabbit','koala'];
+print_r(array_map(null,$data,$data2));
+//結果：Array([0]=>Array([0]=>ぱんだ[1]=>panda)[1]=>Array([0]=>うさぎ[1]=>rabbit)[2]=>Array([0]=>こあら[1]=>koala))
+
+print '<br/>';
+//この記述と、foreach＋分割代入（4.2.7項）を利用すれば、複数の配列をまとめて処理することも可能
+$data = ['ぱんだ','うさぎ','こあら'];
+$data2 = ['panda','rabbit','koala'];
+
+foreach(array_map(null,$data,$data2)as[$v1,$v2]){
+    print "{$v1}:{$v2}<br/>";
+}
+//結果 ぱんだ:panda うさぎ:rabbit こあら:koala
