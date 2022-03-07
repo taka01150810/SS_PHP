@@ -376,3 +376,25 @@ print_r($result);//結果 Array ( [2] => ダックスフント [3] => ポメラ�
 ARRAY_FILTER_USE_KEY(キーを引数として渡す(値は渡さない))
 ARRAY_FILTER_USE_BOTH(値/キーの双方を渡す)
 */
+
+print '<br/>';
+//5.3.15 配列の要素を順に処理して一つにまとめる array_reduce関数
+/* 構文
+array_reduce($array, $callback, [$initial])
+
+$array：処理対象の配列
+$callback：要素を演算する処理
+$initial：初期値
+*/
+$data = [2,4,6,8];
+$multi = array_reduce($data,
+    function($result,$x){
+        return $result * $x;
+    },1);
+print $multi;//結果：384
+/*
+コールバック関数（引数$callback）は、引数として
+1.演算結果を格納するための変数（ここでは$result）
+2.個々の要素を受け取るための変数（ここでは$x）を受け取ります。
+$resultの内容は引き継がれていくので、この例であれば引数$resultに対して順に要素の値を掛け込んでいくという意味になる
+*/
