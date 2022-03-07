@@ -249,3 +249,52 @@ $callback：ソート規則を表した関数
 この例では、引数$a／$bをキーに、配列keys（単位リスト）を検索し、その登場位置で大小比較します。
 比較の結果を正数／負数／0で返すには、<=> 演算子を利用するのが便利です。
 */
+
+//5.3.12 配列の内容を順に処理する array_walk関数
+/*
+array_walk関数を利用すれば、配列から順に要素を取得＆処理できます。
+
+構文
+
+array_walk($array, $callback, [$user_data])
+
+&$array：処理対象の配列
+$callback：処理方法を表した関数
+$user_data：引数$callbackに渡す任意の値
+*/
+$data = ['高江'=>'男','掛谷'=>'女','日尾'=>'男','薄井'=>'女','和田'=>'男'];
+array_walk($data,
+    function($value, $key, $suffix){
+        print "{$key}:{$value}{$suffix}";
+    },'<br/>'
+);
+//結果 掛谷:女 日尾:男 薄井:女 和田:男
+
+//配列の内容を変更する
+/*
+コールバック関数の第1引数（ここでは$value）を参照渡しすることで、元の配列（引数&$array）の内容を書き換えることも可能
+*/
+$data = ['高江'=>'男','掛谷'=>'女','日尾'=>'男','薄井'=>'女','和田'=>'男'];
+array_walk($data, 
+function(&$value){
+    $value = "New{$value}";
+});
+
+print_r($data);//結果 Array ( [高江] => New男 [掛谷] => New女 [日尾] => New男 [薄井] => New女 [和田] => New男 )
+
+print '<br/>';
+//入れ子の配列を再帰的に処理する
+$sum = 0;
+$count = 0;
+$data = [5,1,[10, -3]];
+//配列内の要素を順に加算＆カウント
+array_walk_recursive($data,
+function($value) use(&$sum, &$count){
+    $sum += $value;
+    $count++;
+}
+);
+$average = $sum / $count;
+print "要素の個数:{$count}";//要素の個数:4
+print "合計値:{$sum}";//合計値:13
+print "平均値:{$average}";//平均値:3.25
