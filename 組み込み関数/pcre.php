@@ -214,3 +214,27 @@ $flags：動作フラグ
 1.引数はマッチした文字列の配列（形式はpreg_match関数を参照）
 2.戻り値は置き換え後の文字列
 */
+print '<br/>';
+//5.4.7 正規表現で文字列を分割する preg_split関数
+/* 構文
+preg_split($pattern, $subject[$limit = -1[$flags]])
+
+$pattern：正規表現パターン（空パターン「//」の場合、1文字単位に分割）
+$subject：分割対象の文字列
+$limit：分割の上限回数（既定では無制限）
+$flags：動作オプション
+*/
+$today = '2021-05-14';
+$result = preg_split('|[/.\-]|', $today);
+print "{$result[0]}年{$result[1]}月{$result[2]}日";//結果：2021年05月14日
+//「2021/05/14」を「2021.05.14」のように変更しても、同じ結果が得られる。
+
+//動作オプション($flags)付きの場合
+print '<br/>';
+$today = '2021-05-14';
+$result = preg_split('|[/.\-]|', $today, -1, PREG_SPLIT_DELIM_CAPTURE);
+print_r($result);//結果：Array ( [0] => 2021 [1] => 05 [2] => 14 )
+/*
+PREG_SPLIT_DELIM_CAPTUREを指定することで、区切り文字パターン（引数$pattern）に含まれるサブマッチ文字列を分割結果に含めることができます。
+ここでは区切り文字パターン全体を丸カッコでくくっているので、区切り文字がそのまま分割結果に反映されます。
+*/
