@@ -183,3 +183,34 @@ print preg_replace('|http(s)?://([\w]+\.)+[\w]+(/[\w./?%&=]*)?|',
 サンプルは、「サーバーサイド技術の学び舎（http://www.wings.msn.to/）」から入手できます。 
 執筆のノウハウ集「WINGSKnowledge」（http://www31.atwiki.jp/wingsproject）もどうぞ。
 */
+
+print '<br/>';
+//5.4.6 正規表現で置き換えたコールバック関数で処理する preg_replace_callback関数
+$msg=<<<EOD
+サンプルは、サポートサイト「サーバーサイド技術の学び舎（http://www.wings.msn.to/）」から入手できます。
+執筆のノウハウ集「WINGSKnowledge」（http://www31.atwiki.jp/wingsproject）もどうぞ。
+EOD;
+print preg_replace_callback('|http(s)?://([\w]+\.)+[\w]+(/[\w./?%&=]*)?|i',
+function($matches){
+    foreach($matches as $match){
+        return mb_convert_case($match,MB_CASE_UPPER);
+    }
+},$msg);
+/* 結果
+サンプルは、サポートサイト「サーバーサイド技術の学び舎（HTTP://WWW.WINGS.MSN.TO/）」から入手できます。 
+執筆のノウハウ集「WINGSKnowledge」（HTTP://WWW31.ATWIKI.JP/WINGSPROJECT）もどうぞ。
+*/
+/*  構文
+preg_replace_callback($pattern, $callback, $subject[$limit = -1[&$count, $flags]])
+
+$pattern：正規表現パターン
+$callback：置き換え文字列を加工するための関数
+$subject：置き換え対象の文字列
+$limit：置換の上限回数（既定では無制限）
+&$count：実際に置換が行われた回数を受け取る変数
+$flags：動作フラグ
+
+引数$callback（無名関数）は、以下のルールに則っていなければなりません。
+1.引数はマッチした文字列の配列（形式はpreg_match関数を参照）
+2.戻り値は置き換え後の文字列
+*/
