@@ -161,3 +161,25 @@ if(preg_match_all('/([0-9]{2,4})-([0-9]{2,4})-([0-9]{4})/', $str, $data, PREG_SE
     }
 }
 //結果 電話番号:0398-99-1234 市外局番:0398 市内局番:99 加入者番号:1234
+
+//5.4.5 正規表現で文字列を置換する preg_replace関数
+/* 構文
+preg_replace($pattern, $replacement, $subject[$limit[&$count]])
+
+$pattern：正規表現パターン
+$replacement：置き換え後の文字列
+$subject：置き換え対象の文字列
+$limit：置換の上限回数（既定では無制限）
+&$count：実際に置換が行われた回数を受け取る変数
+*/
+//下記は文字列に含まれるURL文字列を抽出し、これを対応するアンカータグで置き換えるサンプルです
+$msg=<<<EOD
+サンプルは、「サーバーサイド技術の学び舎（http://www.wings.msn.to/）」から入手できます。
+執筆のノウハウ集「WINGSKnowledge」（http://www31.atwiki.jp/wingsproject）もどうぞ。
+EOD;
+print preg_replace('|http(s)?://([\w]+\.)+[\w]+(/[\w./?%&=]*)?|',
+'<a href="$0">$0</a>',$msg);
+/* 結果 
+サンプルは、「サーバーサイド技術の学び舎（http://www.wings.msn.to/）」から入手できます。 
+執筆のノウハウ集「WINGSKnowledge」（http://www31.atwiki.jp/wingsproject）もどうぞ。
+*/
