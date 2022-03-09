@@ -326,3 +326,182 @@ if(preg_match("/[a-z0-9.!#$%&'*+\/=?^_{|}~]+@(?i)[az09]+(\.[a-z0-9-]+)*/",$str,$
 if(preg_match("/(?i)[a-z0-9.!#$%&'*+\/=?^_{|}~]+@(?-i)[az09]+(\.[a-z0-9-]+)*/",$str,$data)){
 
 }
+print '<br/>';
+//5.4.9 正規表現による検索
+//最長一致と最短一致
+//最長一致とは、正規表現で「*」「+」などの量指定子を利用した場合に、できるだけ長い文字列を一致させなさい、というルールです。
+$tags='<p><strong>WINGS</strong>サイト<a href="index.html"><img src="wings.jpg"/></a></p>';
+if(preg_match_all('/<.+>/',$tags,$data,PREG_SET_ORDER)){//「<.+>」は、<...>の中に「.」（任意の文字）が「+」（1文字以上）で、<strong>や<img>のようなタグにマッチすることを想定
+    foreach($data as $item){
+        print htmlspecialchars($item[0]).'<br/>';
+    }
+}
+//結果 <p><strong>WINGS</strong>サイト<a href="index.html"><img src="wings.jpg"/></a></p>
+
+//個々のタグを取り出したい場合
+if(preg_match_all('/<.+?>/',$tags,$data,PREG_SET_ORDER)){//「+?」は最短一致を意味し、今度は「できるだけ短い文字列を一致」させようとする。
+    foreach($data as $item){
+        print htmlspecialchars($item[0]).'<br/>';
+    }
+}
+/* 結果
+  <p> 
+    <strong>
+    </strong>
+    <a href='index.html'>
+        <img src='wings.jpg'/>
+    </a>
+  </p>
+*/
+
+//名前付きキャプチャグループ
+/*
+正規表現パターンに含まれる(...)でくくられた部分のことを、グループ、またはキャプチャグループと言うのでした。
+これらグループにマッチした文字列を「$item[1]」のようにインデックス番号で参照していましたが、グループに意味ある名前を付与することもできます。
+*/
+$str = '彼の電話番号は0399-88-9785、私のは0398-99-1234です。郵便番号はどちらも687-1109です。';
+if(preg_match_all('/(?P<area>[0-9]{2,4})-(?P<city>[0-9]{2,4})-(?P<local>[0-9]{4})/', $str, $data, PREG_SET_ORDER)){
+    foreach($data as $item){
+        print "電話番号:{$item[0]}<br/>";
+        print "市外局番:{$item['area']}<br/>";
+        print "市内局番:{$item['city']}<br/>";
+        print "加入者番号:{$item['local']}<br/>";
+    }
+}
+/* 結果
+電話番号:0399-88-9785
+市外局番:0399
+市内局番:88
+加入者番号:9785
+電話番号:0398-99-1234
+市外局番:0398
+市内局番:99
+加入者番号:1234
+*/
+
+//グループの後方参照
+/*
+グループにマッチした文字列は、正規表現パターンの中であとから参照することもできます（後方参照）。
+一般的なグループは「\1」のような番号で後方参照できます。もちろん、複数のグループがある場合は、\2、\3...のように指定します。
+*/
+$str = '<p>サポートサイト<a href="http://www.wings.msn.to/">http://www.wings.msn.to/</a></p>';
+if(preg_match('/<a href="(.+?)">\1<\/a>/', $str, $data)){
+    print htmlspecialchars($data[0]);
+}
+//結果 <a href="http://www.wings.msn.to/">http://www.wings.msn.to/</a>
+
+print '<br/>';
+/*
+名前付きキャプチャグループも利用できます。
+名前付きキャプチャグループを参照するには「(?P=名)」とする
+*/
+if(preg_match('/<a href="(?P<link>.+?)">(?P=link)<\/a>/',$str,$data)){
+    print htmlspecialchars($data[0]);
+}
+//結果 <a href="http://www.wings.msn.to/">http://www.wings.msn.to/</a>
+
+print '<br/>';
+//参照されないグループ
+/*
+これまでに何度も見てきたように、正規表現では、パターンの一部を(...)でくくることで、部分的なマッチング文字列を取得できるのでした。
+ただし、(...)はサブマッチの目的だけで用いるばかりではありません。たとえば、「*」「+」の対象をグループ化するために用いるような状況もあります
+*/
+$str = '仕事用はwings@example.comです。プライベート用はYAMA@example.comです。';
+if(preg_match_all("/([a-z0-9.!#$%&\'*+\/=?^_{|}~-]+)@([a-z0-9-]+(\.[a-z0-9-]+)*)/i", $str, $data, PREG_SET_ORDER)){
+    foreach($data as $item){
+        print "{$item[0]}<br />";
+        print "{$item[1]}<br />";
+        print "{$item[2]}<br />";
+        print "{$item[3]}";
+        print "<hr />";
+    }
+}
+/* 結果
+wings@example.com
+wings
+example.com
+.com
+YAMA@example.com
+YAMA
+example.com
+.com
+*/
+if(preg_match_all('/([a-z0-9.!#$%&\'*+\/=?^_{|}~-]+)@([a-z0-9-]+(\.[a-z0-9-]+)*)/i', $str, $data, PREG_SET_ORDER))
+//、(?:...)とすることで、サブマッチの対象から除外できる
+if(preg_match_all('/([a-z0-9.!#$%&\'*+\/=?^_{|}~-]+)@([a-z0-9-]+(?:\.[a-z0-9-]+)*)/i',$str,$data,PREG_SET_ORDER)){
+    foreach($data as $item){
+        print "{$item[0]}<br />";
+        print "{$item[1]}<br />";
+        print "{$item[2]}<br />";
+        print "<hr />";
+    }
+}
+/* 結果
+wings@example.com
+wings
+example.com
+YAMA@example.com
+YAMA
+example.com
+*/
+
+//後読みと先読み
+/*
+A(?=B)...肯定的先読み(Aの直後にBが続く場合にだけAにマッチ)
+A(?!B)...否定的先読み(Aの直後にBが続かない場合にだけAにマッチ)
+(?<=B)A...肯定的後読み(Aの直前にBがある場合にだけAにマッチ)
+(?<!B)A...否定的後読み(Aの直前にBがない場合にだけAにマッチ)
+*/
+function showMatch($ptn, $input){
+    if(preg_match_all($ptn, $input, $data)){
+        foreach($data as $items){
+            foreach($items as $item){
+                print "{$item}<br />";
+            }
+        }
+    } else {
+        print 'マッチしません<br />';
+    }
+    print '<hr />';
+}
+
+$ref1 = '/いろ(?=はに)/';
+$ref2 = '/いろ(?!はに)/';
+$ref3 = '/(?<=。)いろ/';
+$ref4 = '/(?<!。)いろ/';
+$msg1 = 'いろはにほへと';
+$msg2 = 'いろものですね。いろいろと';
+
+showMatch($ref1, $msg1);//結果 いろ
+showMatch($ref1, $msg2);//結果 マッチしません
+showMatch($ref2, $msg1);//結果 マッチしません
+showMatch($ref2, $msg2);//結果 いろ、いろ、いろ
+showMatch($ref3, $msg1);//結果 マッチしません
+showMatch($ref3, $msg2);//結果 いろ
+showMatch($ref4, $msg1);//結果 いろ
+showMatch($ref4, $msg2);//結果 いろ、いろ
+
+//ひらがな/カタカナ/漢字などを取得する
+/*
+Unicodeの個々の文字には、それぞれの文字種を表すためのプロパティが割り当てられています。
+これらプロパティを正規表現のパターンの中で利用できるようにしたものがUnicodeプロパティという仕組みです。
+Unicodeプロパティを利用するには、UTF8モード（u修飾子）を有効にした上で、\p{...}の形式で表します。
+*/
+/* よく利用するUnicodeプロパティ
+Hiragana ひらがな
+Katakana カタカナ
+Han 漢字
+Punct 句読点
+Digit 数字(10進数)
+Space 空白
+Lower 小文字英字
+Upper 大文字英字
+*/
+$str = 'ただいまWINGSプロジェクトメンバー募集中!';
+preg_match('/[\p{Hiragana}]+/u', $str, $data);
+preg_match('/[\p{Katakana} - ]+/u', $str, $data2);
+preg_match('/[\p{Han}]+/u', $str, $data3);
+
+print $data[0];//結果 ただいま
+print $data2[0];//結果 プロジェクトメンバ
+print $data3[0];//結果 募集中
