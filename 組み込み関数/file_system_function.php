@@ -171,3 +171,82 @@ fgetcsv関数は、ファイルポインターを1行ずつ後ろにずらしな
 fgetcsv関数は、読み込むべき次の行が存在しない場合にfalseを返します。
 fgetcsv関数のこの性質を利用して、fgetcsv関数がfalseを返すまでwhileループを繰り返すことで、ファイル内のすべての行を読み込んでいるというわけです。
 */
+//5.5.7 タブ区切りテキストの読み込み fget/file関数
+/* 構文
+fgets($handle,[$length])
+
+$handle：ファイルハンドル
+$length：読み込む最大長（バイト単位）
+*/
+/*
+この場合は、読み込んだ行データをexplode関数で分割処理する必要があります。
+タブ区切りテキストを読み込む場合にはfgetcsv関数のほうが便利ですが
+特定の区切り文字を持たないテキストを順に読み込む場合にはfgets関数がよいでしょう。
+*/
+?>
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<title>アクセスログ</title>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</html>
+<body>
+    <table class="table">
+        <thread>
+            <th>アクセス日時</th>
+            <th>スクリプト名</th>
+            <th>ユーザーエージェント</th>
+            <th>リンク元のURL</th>
+        </thread>
+        <tbody>
+            <?php
+            //ファイル読み取り専用でオープン
+            $file = fopen('access.log', 'r');
+            //ファイルを共有ロック
+            flock($file, LOCK_SH);
+            //行単位でテキストを読み込み&タブ文字で分割
+            while($fline = fgets($file, 1024)){
+                $line = explode("\t", trim($fline));
+                print '<tr>';
+                //分割した結果を順に出力
+                foreach($line as $value){
+                    print '<td>' . $value . '</td>';
+                }
+                print '</tr>';
+            }
+            //ロックの解除
+            flock($file, LOCK_UN);
+            //ファイルのクローズ
+            fclose($file);
+            ?>
+        </tbody>
+    </table>
+</body>
+<?php
+/* 構文
+file($filename[$flag])
+
+$filename：読み込むファイルのパス
+$flags：動作フラグ
+*/
+/*　$flagの設定値
+FILE_USE_INCLUDE_PATH include_pathパラメータからファイルを検索
+FILE_IGNORE_NEW_LINES 配列の要素末尾に改行文字を追加しない
+FILE_SKIP_EMPTY_LINES 空行を読み飛ばす
+*/
+$file = file('access.log',FILE_IGNORE_NEW_LINES);
+//配列に格納された行を順に処理
+foreach($file as $line){
+    //タブ文字で行単位のテキストを分割
+    $line = explode("\t",$line);
+    print '<tr>';
+    foreach($line as $value){
+        print '<td>'.$value.'</td>';
+    }
+    print '</tr>';
+}
+/*
+file関数は、ファイルの内容をまとめて取得したいという場合に便利です。ただし巨大なテキストが相手の場合、メモリも大量に消費します。
+テキストの内容を順に処理（出力）するケースでは、できるだけfgets／fgetcsv関数を優先して利用すべきです。
+*/
