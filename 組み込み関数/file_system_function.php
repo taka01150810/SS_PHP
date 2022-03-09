@@ -113,3 +113,61 @@ LOCK_EX...排他ロック(書き込み中なので、他者による書き込み
 LOCK_UN...ロックの解除
 LOCK_NB...非ブロックモード
 */
+
+//5.5.6 タブ区切りテキストの読み込み fgetcsv関数
+/* 構文
+fgetcsv($stream[$length[$separator[$enclosure[$escape]]]])
+
+$stream：ファイルハンドル
+$length：読み込む最大長（バイト単位）
+$separator：区切り文字（既定ではカンマ）
+$enclosure：フィールドの囲み文字（既定ではダブルクォート）
+$escape：エスケープ文字（既定ではバックスラッシュ）
+*/
+?>
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<title>アクセスログ</title>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</html>
+<body>
+    <table class="table">
+        <thread>
+            <th>アクセス日時</th>
+            <th>スクリプト名</th>
+            <th>ユーザーエージェント</th>
+            <th>リンク元のURL</th>
+        </thread>
+        <tbody>
+            <?php
+            //ファイル読み取り専用でオープン
+            $file = fopen('access.log', 'r');
+            //ファイルを共有ロック
+            flock($file, LOCK_SH);
+            //行単位でテキストを読み込み&タブ文字で分割
+            while($line = fgetcsv($file, 1024, "\t")){
+                print '<tr>';
+                //分割した結果を順に出力
+                foreach($line as $value){
+                    print '<td>' . $value . '</td>';
+                }
+                print '</tr>';
+            }
+            //ロックの解除
+            flock($file, LOCK_UN);
+            //ファイルのクローズ
+            fclose($file);
+            ?>
+        </tbody>
+    </table>
+</body>
+<?php
+/*
+fgetcsv関数は、ファイルポインターを1行ずつ後ろにずらしながら、現在行のテキストを読み込み、指定された区切り文字で分割した値を配列として返します。
+ファイルポインターとは、ファイルを現在読み書きしている位置を示す目印のようなものです。
+
+fgetcsv関数は、読み込むべき次の行が存在しない場合にfalseを返します。
+fgetcsv関数のこの性質を利用して、fgetcsv関数がfalseを返すまでwhileループを繰り返すことで、ファイル内のすべての行を読み込んでいるというわけです。
+*/
