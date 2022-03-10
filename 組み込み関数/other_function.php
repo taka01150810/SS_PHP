@@ -38,3 +38,18 @@ print '<br/>';
 print log10(100);//結果 2 底10の対数
 print '<br/>';
 print log(125, 5);//結果 3 対数
+
+//5.6.2 変数を破棄する unset関数
+/* 構文
+unset($var, $vars)
+
+$var、$vars：破棄対象の変数
+*/
+$str;
+var_dump($str);//結果 NULL
+print '<br/>';
+$str = '代入';
+var_dump($str);//結果 string(6) "代入"
+print '<br/>';
+unset($str);
+var_dump($str);//結果 NULL
