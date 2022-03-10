@@ -53,3 +53,29 @@ var_dump($str);//結果 string(6) "代入"
 print '<br/>';
 unset($str);
 var_dump($str);//結果 NULL
+
+print '<br/>';
+//5.6.3 変数のデータ型を判定する is_xxxxx関数
+/*
+これまで繰り返し述べてきたように、PHPはデータ型に寛容な言語です。
+しかし、スクリプトを記述していく上で、型を完全に無視することはできません。特に値の演算や比較では、型を意識せざるを得ません。
+そこで登場するのが、is_xxxxx関数です。
+is_xxxxx関数を利用することで、変数／リテラルのデータ型を判定し、その結果をtrue／falseで得ることができます
+*/
+var_dump(is_int(101));//結果 bool(true)
+print '<br/>';
+var_dump(is_int('101'));//結果 bool(false)
+print '<br/>';
+var_dump(is_numeric('101'));//結果 bool(true)
+print '<br/>';
+var_dump(is_float(1.5E8));//結果 bool(true)
+print '<br/>';
+var_dump(is_resource(fopen('access.log', 'r')));//結果 bool(true)
+print '<br/>';
+var_dump(is_null(''));//結果 bool(false)
+print '<br/>';
+/*
+is_numeric関数を除いては、データ型を厳密に判定する点に注意してください。
+たとえばフォームから入力される数値は内部的には文字列型として扱われます。そのため、is_int関数やis_float関数は常にfalseを返します。
+その場合は、数値形式の文字列も認識できるis_numeric関数を利用する必要があります。
+*/
