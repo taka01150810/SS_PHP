@@ -131,3 +131,39 @@ void（なにも返さない）は、戻り値としてのみ利用できる型�
 //     return null;
 // }
 //結果 エラー
+
+print '<br/>';
+//6.1.7 スクリプトの外部化
+/*
+外部ファイル（.phpファイル）を現在のスクリプトにインクルードするには、require、include、require_once、include_once命令を利用します。
+require命令とinclude命令との違いは、指定したファイルが見つからなかった場合の挙動にあります。
+require命令はFatalError（致命的なエラー）を発生させ、その場でスクリプトを中断しますが、
+include命令はWarning（警告）を発するだけで、スクリプトの処理は継続されます。
+require_once／include_once命令は、require／include命令の「一度きり」版です。
+指定されたファイルがすでに読み込み済みである場合、require_once／include_once命令はスクリプトを読み込まず、処理をスキップします。
+意図的に同じファイルを読み込みたいという場合を除き、できるだけrequire_once／include_once命令を利用してください。
+そうすることで、循環呼び出しのような不具合を未然に防ぐことができます。
+循環呼び出しとは、呼び出し元と呼び出し先とで互いをインクルードし合うことを言います。
+*/
+require_once 'user_define_function.php';
+$area = getTriangleArea(8, 10);
+print "三角形の面積は{$area}です。";
+
+/* 外部ファイルは絶対パスを利用する
+require／include系の命令を利用する際に、原則、相対パスの利用は避けるべきです。
+
+(例)my_app/main.php(require_once('./lib/func1.php'))
+my_app/lib/func1.php(require_once('./func2.php'))
+my_app/lib/func1.php
+main.php（起動スクリプト）→func1.php→func2.phpのように呼び出すことを想定しています。
+しかし、func1.phpのrequire_once命令で「Failed opening required'./func2.php'」のようなエラーとなります。
+一見すると正しいパスのようですが、相対パスは起動スクリプトが基点となるというルールがあるのが理由です。
+
+よって、func1.phpのrequire呼び出しは/my_app/func2.phpを探しに行ってしまうのです。
+なので避けるために
+my_app/lib/func1.php(require_once('./lib/func2.php'))
+のように書き換えることも可能であるが、、unc1.phpをたとえば/my_app/sub/app.phpのような異なる起動スクリプトから呼び出した場合には、
+同じく呼び出しに失敗してします。
+そこで一般的には、require／include命令は、絶対パスで指定することをお勧めします。
+require_once __DIR__.'/func2.php';
+*/
