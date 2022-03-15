@@ -18,3 +18,9 @@ $area = getTriangleArea(8, 10);
 print "三角形の面積は{$area}です。";
 
 print '<br/>';
+//6.1.2 関数名
+/*
+識別子の命名規則に従うのは、変数の場合と同じgetTriangleArea、updateInfoのようなcamelCase記法で表します。
+具体的には、addElementのように「動詞＋名詞」の形式で命名することをお勧めします。
+checkUpdateDataのような、複数動詞の連結も一般的には避けるべきです。
+*/
