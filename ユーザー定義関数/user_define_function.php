@@ -40,3 +40,25 @@ function getTriangleArea($base, $height){
 $area = getTriangleArea(8, 10);
 print "三角形の面積は{$area}です。";
 */
+
+//6.1.4 戻り値
+/*
+引数（仮引数）が関数の入り口であるとするならば、戻り値（返り値）は関数の出口──関数が処理した結果を表します。
+return命令によって表します。
+*/
+/*
+戻り値がない（＝呼び出し元に値を返さない）関数では、return命令は省略してもかまいません。
+その場合も、関数は（なにも返さないわけではなく）nullという空値を返したとみなされます。
+*/
+function showMessage($name){
+    print"こんにちは、{$name}さん！";//結果：こんにちは、山田さん！
+}
+var_dump(showMessage('山田'));//結果：NULL（returnがないので、戻り値はなし）
+
+//return命令は、関数の処理を中断する場合にも利用できます。その場合は、ただ「return」とすることで、戻り値を返さず、ただ処理を終了しなさいという意味になります
+function getTriangleArea_1($base,$height){//引数$base／$heightが0以下の場合は、関数を終了
+    if($base <= 0||$height <= 0){
+        return;
+    }
+    return $base * $height/2;
+}
