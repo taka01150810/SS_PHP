@@ -80,3 +80,54 @@ print "三角形の面積は{$area_2}です。";//結果 三角形の面積は40
 $area_3 = getTriangleArea_5(8,'x');//結果：40
 print "三角形の面積は{$area_3}です。";//結果  エラー
 */
+print '<br/>';
+//6.1.6 複合的な型宣言
+//null許容型
+/*
+型名の先頭に「?」を付与することで、nullを許容する型を表現できる
+*/
+function hoge(?int $value) : void {
+    var_dump($value);
+}
+hoge(100);//結果 int(100)
+hoge(null);//結果 NULL
+// hoge();//結果 エラー
+
+print '<br/>';
+//Union型
+/*
+PHP8以降であれば、「|」区切りで「int|bool」（int、boolいずれか）のような型を表すことも可能です。このような型をUnion型と呼びます。
+PHP8ではmixed型（なんでもあり）も利用できるようにはなっていますが、安易にmixed型に頼るのではなく（その場合、型宣言をそもそも利用しなければよいからです）
+まずはUnion型で取りうる（返しうる）型の候補を列挙することをお勧めします。
+*/
+function getTriangleArea_6(string|float $base, string|float $height):float{
+    return $base * $height / 2;
+}
+$area_1 = getTriangleArea_6(8, 10);
+print "三角形の面積は{$area_1}です。";//結果 三角形の面積は40です。
+/*
+以下のような重複はエラーです。
+● 名前の重複（int|bool|INTなど）
+● object型とクラス型（6.1.5項）の重複（object|Personなど）
+● iterable型とarray／Traversableの重複
+● bool型とfalse擬似型（後述）の重複
+*/
+
+//false擬似型
+/*
+false擬似型は、Union型でのみ利用できる型で、「int|false」のように表します。
+たとえばmb_strpos関数は、指定の文字列が見つかった位置をint値で、見つからなかった場合にはfalseを返します。
+*/
+// function mb_strpos(string $haystack, string $needle, int $offset = 0, string $encoding = mb_internal_encoding()):int|false{
+
+// }
+
+//void型の戻り値
+/*
+void（なにも返さない）は、戻り値としてのみ利用できる型です。
+「なにも返さない」なので、たとえばnullであっても値を返すのは不可です。
+*/
+// function hoge():void{
+//     return null;
+// }
+//結果 エラー
