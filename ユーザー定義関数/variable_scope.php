@@ -70,3 +70,45 @@ function checkScope_4():string {
 }
 print checkScope_4();//結果 $scope_2アクセスできました。
 print $scope_2;//結果 警告 + 表示されない
+
+print '<br/>';
+//6.2.5 unset関数の挙動
+/*
+unset関数を利用することで変数を破棄できます。
+しかし、globalキーワードで定義された変数や、静的変数（static変数）を破棄する場合には、その挙動に注意が必要です。
+*/
+$x = 10;
+function checkScope_5():int{
+    global $x;
+    unset($x);
+    return ++$x;
+}
+print checkScope_5();//結果 1
+print $x;//結果 10
+/*
+一見してグローバル変数を破棄するように見えますが、あくまで破棄されるのは「グローバル変数のようにふるまうローカル変数」だけです。
+関数外部のグローバル変数には影響しません。
+*/
+
+print '<br/>';
+//関数の中でグローバル変数を破棄したい場合
+function checkScope_5_2():int{
+    global $x;
+    unset($GLOBALs['x']);
+    return ++$x;
+}
+
+//staticキーワード
+/*
+静的変数を破棄した場合、その関数での以降の処理でのみ変数を破棄します
+*/
+function checkStatic_5():void{
+    static $x_static = 0;
+    $x_static++;
+    print "unset前:{$x_static}";
+    unset($x_static);
+    $x_static = 13;
+    print "unset後:{$x_static}";
+}
+checkStatic_5();//結果 unset前:1 unset後:13
+checkStatic_5();//結果 unset前:2 unset後:13
