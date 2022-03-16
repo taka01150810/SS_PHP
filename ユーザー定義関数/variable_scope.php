@@ -13,8 +13,21 @@ $x = 10;
 function checkScope():int{
     return ++$x;
 }
-print checkScope();//結果 エラー
+print checkScope();//結果 1
 print $x;//結果：10
 /*
 グローバル変数とローカル変数、スコープの異なる変数は、名前が同一であっても違う変数とみなされる。
+*/
+
+print '<br/>';
+//6.2.2 関数内でグローバル変数を利用する global変数
+$x = 10;
+function checkScope_2():int{
+    global $x;
+    return ++$x;
+}
+print checkScope_2();//結果 11
+print $x;//結果 11
+/*
+これによって、関数内の$xがグローバル変数とみなされます。
 */
