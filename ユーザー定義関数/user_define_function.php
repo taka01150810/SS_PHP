@@ -167,3 +167,49 @@ my_app/lib/func1.php(require_once('./lib/func2.php'))
 そこで一般的には、require／include命令は、絶対パスで指定することをお勧めします。
 require_once __DIR__.'/func2.php';
 */
+
+print '<br/>';
+//6.1.8 関数を定義する位置
+/*
+関数は、基本的にスクリプトのどこに定義してもかまいません。下記は正しく動作します。
+関数定義のコードが関数呼び出しのコードよりも先にある必要はない、ということです。
+これは、function命令による関数定義が（実行時にではなく）コンパイル時に行われているためです。
+*/
+$area = getTriangleArea_8(8,10);
+print "三角形の面積は{$area}です。";//結果：三角形の面積は40です。
+function getTriangleArea_8(float $base,float $height):float{
+    return $base * $height/2;
+}
+
+//(1)条件分岐の中で関数が定義されている場合
+/*
+$area = getTriangleArea_8_1(8,10);
+print "三角形の面積は{$area}です。";//結果：三角形の面積は40です。
+if(true){
+    function getTriangleArea_8_1(float $base,float $height):float{
+        return $base * $height/2;
+    }
+}
+*/
+//結果 エラー
+/*
+この場合、関数は条件式を満たした場合にのみ（ここでは常にtrueですが）定義されます。
+つまり、条件式が評価されるまで、関数は定義されません。
+*/
+
+//(2)関数内の関数である場合
+//test();
+/*
+$area = getTriangleArea_8_2(8,10);
+print "三角形の面積は{$area}です。";
+function test(){
+    function getTriangleArea_8_2(float $base,float $height):float{
+        return $base * $height /2;
+    }
+}
+*/
+//結果 エラー
+/*
+コンパイルの段階では、関数は登録されるのみで実行されるわけではありません。
+つまり、関数内関数は、実行時に親の関数が呼び出されるまで認識されません。
+*/
