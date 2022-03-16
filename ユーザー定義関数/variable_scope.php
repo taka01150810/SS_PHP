@@ -56,3 +56,17 @@ print checkStatic_2();//結果 2
 静的変数は、関数の初回呼び出し時にのみ初期化され、その後、関数の処理が終了しても維持されます。
 checkStatic関数を繰り返し呼び出すと、確かに、ローカル変数$xがインクリメントされていることが確認できます。
 */
+
+print '<br/>';
+//6.2.4 インクルードファイルのスコープ
+//インクルードファイルを、それぞれ関数の外から読み込むサンプル
+// require_once 'scope_require.php';
+// print $scope;//結果 アクセスできました。
+
+//インクルードファイルを、それぞれ関数の中から読み込むサンプル
+function checkScope_4():string {
+    require_once 'scope_require.php';
+    return $scope_2;
+}
+print checkScope_4();//結果 $scope_2アクセスできました。
+print $scope_2;//結果 警告 + 表示されない
