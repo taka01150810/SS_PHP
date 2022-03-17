@@ -127,3 +127,16 @@ function total_6_1(float $init, float ...$args): float {
     }
     return $result;
 }
+
+print '<br/>';
+//6.3.7 「...」演算子による引数のアンパック
+/*
+「...」演算子は、実引数で利用することで、配列（正確にはforeachブロックで処理できるすべてのオブジェクト）を個々の値に展開（アンパック）できます。
+*/
+
+function getTriangleArea_7(float $base,float $height):float{
+    return $base * $height/2;
+}
+//print getTriangleArea_7([10,5]);//結果：エラー
+//getTriangleAreaメソッドはfloat型の引数を2個要求しているので、array型での呼び出しは型違反でエラーとなります。
+print getTriangleArea_7(...[10,5]);//結果：25
