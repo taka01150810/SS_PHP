@@ -77,3 +77,24 @@ function total(float ...$args): float {
 }
 print total(7, -3, 10);//結果 14
 print total(11, -5, 4, 88);//結果 98
+
+//6.3.5 可変長引数と通常の引数の混在
+function replaceContents(string $path,string... $args):string{
+    //指定されたパスからファイルを読み込み
+    $data = file_get_contents($path);//可変長引数を順番に処理し、{0}、{1}、……と置き換え
+    for($i = 0;$i < count($args); $i++){
+        $data = str_replace('{'.($i).'}',$args[$i],$data);
+    }
+    return $data;
+}//data.dat（リスト6.27）を読み込み＆出力
+print replaceContents('data.dat','鈴木太郎','2021年5月1日');
+/* 結果
+WINGSニュース2021年5月1日号をお届けします。
+本日は、鈴木太郎様にお勧めの書籍を紹介致します。
+*/
+
+/*
+可変長引数と、通常の引数を同居させる場合、注意すべき点は
+可変長関数は引数リストの末尾に置かなければならないということです。
+さもないと、すべての引数が可変長引数に吸収されてしまう。
+*/
