@@ -41,3 +41,22 @@ function increment_1(int &$num):int {
 $value = 10;
 print increment_1($value);//結果 11
 print $value;//結果 11
+
+print '<br/>';
+//6.3.3名前付き引数
+/*
+名前付き引数とは、次のように呼び出し時に名前を明示的に指定できる引数のことです。
+*/
+function getTriangleArea_3(float $base = 5, float $height = 1):float {
+    return $base * $height / 2;
+}
+$area = getTriangleArea_3(height: 10);//前方の引数だけを省略
+print "三角形の面積は{$area}です。<br/>";//結果 三角形の面積は25です。
+$area = getTriangleArea_3(height: 10, base: 50);//引数の順番を入れ替えた
+print "三角形の面積は{$area}です。<br/>";//結果 三角形の面積は250です。
+/*
+名前付き引数を利用することで、以下のようなメリットがあります。
+1.引数が多くなっても、意味を把握しやすい
+2.必要な引数だけをスマートに表現できる（順番にかかわらず、どれを省略してもよい）
+3.引数の順序を自由に変更できる
+*/
