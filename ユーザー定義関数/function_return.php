@@ -79,3 +79,25 @@ function total(float $value, int $key){
 $data = [100, 50, 10, 5];
 myArrayWalk_1($data, 'total');
 print "合計値:{$result}";//結果 合計値:165
+
+print '<br/>';
+//6.4.4 無名関数(クロージャー)
+/*
+高階関数に渡すことを目的としたこれらの関数は、多くの場合、その場限りでしか利用しません。
+そのような（いわゆる）使い捨ての関数のために名前を付けるのは無駄なので、できればなくしてしまいたいところです。
+そこで登場するのが、無名関数（匿名関数）という名前を持たない関数です。クロージャーとも呼ばれます。
+名前は不要で、特定の機能だけを定義したいという場合には、無名関数を利用することでスクリプトがより読みやすくなります。
+*/
+function myArrayWalk_4(array $array,callable $func):void{
+    //配列$arrayの内容を順に処理
+    foreach($array as $key => $value){
+        $func($value,$key);//$funcで指定された関数を呼び出し
+    }
+}
+//上記を無名関数に書き換えると
+$data = ['杉山','長田','杉沼','和田','土井'];
+myArrayWalk_4($data,
+    function($value,$key){
+        print"{$key}:{$value}<br/>";
+    }
+);//結果 0:杉山 1:長田 2:杉沼 3:和田 4:土井
