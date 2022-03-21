@@ -101,3 +101,49 @@ myArrayWalk_4($data,
         print"{$key}:{$value}<br/>";
     }
 );//結果 0:杉山 1:長田 2:杉沼 3:和田 4:土井
+
+//6.4.5 親スコープの変数を引き継ぐ use命令
+function myArrayWalk_5(array $array,callable $func):void{
+    //配列$arrayの内容を順に処理
+    foreach($array as $key => $value){
+        $func($value,$key);//$funcで指定された関数を呼び出し
+    }
+}
+//結果を求めるための関数
+$data = [100, 50, 10, 5];
+//結果値を格納するための変数
+$result = 0;
+myArrayWalk_5($data, function($value, $key)use(&$result){
+    $result += $value;
+});
+print "合計値:{$result}";//結果 合計値:165
+/*
+親スコープの変数を引き継ぐのはuse命令の役割です。
+ここでは$result1つを引き継いでいますが、カンマ区切りで複数の変数を引き継ぐこともできます。
+*/
+
+//global命令との違い
+$result = 0;
+myArrayWalk_5($data, function($value, $key){
+    global $result;
+    $result += $value;
+});
+print "合計値:{$result}";//結果 合計値:165
+
+function hoge(){
+    $data = [100, 50, 10, 5];
+    $result = 0;
+
+    myArrayWalk_5($data, function($value, $key){
+        global $result;
+        $result += $value;
+    });
+
+    print "合計値:{$result}";
+}
+hoge();//結果 合計値 0
+/*
+これは、global命令が指している先が、グローバル変数だからです。
+しかし、変数$resultは、あくまでhoge関数配下のローカル変数です。
+もちろん、グローバル変数への操作結果がローカル変数に反映されることはありません
+*/
