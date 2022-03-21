@@ -79,7 +79,8 @@ foreach($gen as $line){
     print $line.'<br/>';
 }
 //最終的に読み込んだ行数を取得
-print "{$gen->getReturn()}行ありました";
+print "{$gen->getReturn()}行ありました";//結果 6行ありました。
+//return命令で返された値を取得するには、GeneratorオブジェクトのgetReturnメソッドを利用する
 
 /*
 仮に、上限を区切って10万個までの素数を求めるとしても、10万個の値を格納するための配列を用意しなければなりません。
@@ -87,3 +88,26 @@ print "{$gen->getReturn()}行ありました";
 しかし、ジェネレーターを利用することで、yield命令のタイミングでつど、値が返されるので、メモリ消費もその時どきの状態を監視する最小限で済みます。
 なにかしらのルールに従って、値セットを生成するような用途では、ジェネレーターをお勧めします。
 */
+
+//6.5.3 一部の処理を他のジェネレーターに委譲する
+/*
+yield from命令を利用することで、ジェネレーターの中で別のジェネレーター、または配列を呼び出し、これを列挙できます
+*/
+function readFiles(string...$files){
+    //配列から順にファイルパスを取り出す
+    foreach($files as $file){
+        //ジェネレーターreadLinesに処理を委ねる
+        yield from readLines($file);
+    }
+}
+function readLines_3(string $path){
+    $file=fopen($path,'rb')or die('ファイルが見つかりません');//行単位にテキストを取得
+    while($line = fgets($file,1024)){
+        yield$line;
+    }
+    fclose($file);
+}
+//sample.dat／sample2.datの内容を順に列挙
+foreach(readFiles('sample.dat','sample2.dat') as $line){
+    print$line.'<br/>';
+}
