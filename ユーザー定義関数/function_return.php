@@ -28,3 +28,54 @@ function factorial(int $num):int{
     return 1;
  }
 print factorial(5);//結果：120
+
+print '<br/>';
+//6.4.3 可変関数
+/*
+可変関数とは、「$変数名()」の形式で呼び出せる関数のことです。
+これによって、変数名に応じて対応する関数を検索＆実行できます。
+*/
+function getTriangleArea(float$base,float$height):float{
+    return $base * $height / 2;
+}
+$name = 'getTriangleArea';
+$area = $name(8,10);
+print"三角形の面積は{$area}です。";//結果：三角形の面積は40です。
+
+print '<br/>';
+//高階関数の実装
+/*
+高階関数とは、関数そのものを引数として渡したり、あるいは戻り値として返したりするための関数です。
+*/
+//高階関数myArrayWalkを定義
+function myArrayWalk(array $array,callable $func):void{
+    //配列$arrayの内容を順に処理
+    foreach($array as $key => $value){
+        $func($value,$key);//$funcで指定された関数を呼び出し
+    }
+}
+//配列を処理するためのユーザー定義関数
+function showItem(mixed $value,int|string $key):void{
+    print "{$key}:{$value}<br/>";
+}
+$data = ['杉山','長田','杉沼','和田','土井'];
+myArrayWalk($data,'showItem');//結果 0:杉山 1:長田 2:杉沼 3:和田 4:土井
+/*
+可変関数の機能を利用することで、このように引数を経由して実行する関数を決めることができる。
+*/
+
+//myArrayWalk関数を使って、配列に含まれる値の合計値を求める
+function myArrayWalk_1(array $array,callable $func):void{
+    //配列$arrayの内容を順に処理
+    foreach($array as $key => $value){
+        $func($value,$key);//$funcで指定された関数を呼び出し
+    }
+}
+$result = 0;
+function total(float $value, int $key){
+    global $result;
+    $result += $value; 
+}
+$data = [100, 50, 10, 5];
+myArrayWalk_1($data, 'total');
+print "合計値:{$result}";//結果 合計値:165
