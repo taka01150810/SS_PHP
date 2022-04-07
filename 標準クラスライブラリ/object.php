@@ -132,3 +132,14 @@ setTimestampメソッドは、このようにタイムスタンプ値を返す�
 $now = new DateTime();
 $now->setTimestamp(time());
 print $now->format('Y年m月d日 H:i:s');//結果 2022年04月07日 04:27:37
+
+print '<br/>';
+ //7.2.2 日付/時刻値を指定のフォーマットで整形する formatメソッド
+ $now = new DateTime();
+ print $now->format('Y年m月d日 (D) g:i:s a');//結果 2022年04月07日 (Thu) 5:09:50 am
+ print '<br/>';
+ print $now->format('当日の日数: t日');//結果 当日の日数: 30日
+ print '<br/>';
+ print $now->format('L') ? '閏年です。':'閏年ではありません。';//結果 閏年ではありません。//L = 閏年であるか判別
+ print '<br/>';
+ print $now->format(DateTime::RSS);//結果 Thu, 07 Apr 2022 05:13:09 +0000
