@@ -143,3 +143,13 @@ print '<br/>';
  print $now->format('L') ? '閏年です。':'閏年ではありません。';//結果 閏年ではありません。//L = 閏年であるか判別
  print '<br/>';
  print $now->format(DateTime::RSS);//結果 Thu, 07 Apr 2022 05:13:09 +0000
+
+ print '<br/>';
+ //7.2.3 日付/時刻文字列を解析する createFromFormatメソッド
+ /*
+ createFromFormat静的メソッドは、指定した書式文字列で日付／時刻文字列を解析（パース）し、DateTimeオブジェクトを生成します
+ */
+$fmt = 'Y年m月d日H時i分s秒';
+$time = '2021年05月15日11時58分32秒';
+$dt = DateTime::createFromFormat($fmt,$time);
+print $dt->format('Y-m-d H:i:s');//結果 2021-05-15 11:58:32
