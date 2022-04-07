@@ -169,3 +169,17 @@ $dt1 = new DateTime('2021/5/15 10:58:31');
 $dt2 = new DateTime('2021/12/04');
 $interval = $dt1->diff($dt2,true);
 print $interval->format('%Y年%M月%d日%H時間%I分%');//結果 00年06月18日13時間01分
+
+print '<br/>';
+//7.2.6 日付/時刻関数
+//カレンダーをテキスト表示するcalendar関数（引数$yearは年、$monthは月）
+function calendar(int $year,int $month):void{
+    //1～31までの間でループ処理
+    for($i=1;$i<32;$i++){//日付（$i）が該当月の妥当な日である場合のみ表示
+        if(checkdate($month,$i,$year)){
+            print "{$i}&nbsp;";
+        }
+    }
+}
+print '2024年2月のカレンダー';
+calendar(2024,2);
