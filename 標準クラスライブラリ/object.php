@@ -153,3 +153,12 @@ $fmt = 'Y年m月d日H時i分s秒';
 $time = '2021年05月15日11時58分32秒';
 $dt = DateTime::createFromFormat($fmt,$time);
 print $dt->format('Y-m-d H:i:s');//結果 2021-05-15 11:58:32
+
+print '<br/>';
+//7.2.4 日付/時刻値を加算/減産する add/subメソッド
+$dt = DateTime::createFromFormat($fmt,$time);
+print $dt->format('Y年m月d日 H時i分');//結果 2021年05月15日 11時58分
+$dt->add(new DateInterval('P1YT10H'));//「P＜日付間隔＞T＜時間間隔＞」の形式で、日付／時間間隔は「数値+単位」の形式で表します。
+print $dt->format('Y年m月d日 H時i分');//結果 2022年05月15日 21時58分
+$dt->sub(new DateInterval('P3MT20M'));
+print $dt->format('Y年m月d日 H時i分');//結果 2022年02月15日 21時38分
