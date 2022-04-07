@@ -84,3 +84,51 @@ if($dt !== null){
 インスタンスメソッド ->
 静的メソッド/静的プロパティ ::
 */
+
+//7.2 DateTimeクラス
+//DateTimeクラスは、日付／時刻の演算や整形を行うためのクラスです。
+//7.2.1 DateTimeオブジェクトの生成
+//(1)現在の日付/時刻から生成
+$now = new DateTime();
+print $now->format('Y年m月d日 H:i:s');//結果 2022年04月07日 04:15:30
+/*
+引数なしでDateTimeオブジェクトを生成した場合、DateTimeオブジェクトには現在の日時がセットされます。
+formatメソッドは、DateTimeオブジェクトの内容を整形するためのメソッドです。
+*/
+print '<br/>';
+
+//(2)日付/時刻文字列から生成
+$now = new DateTime('2022/4/7 04:15:20');
+print $now->format('Y年m月d日 H時i分');//結果 2022年04月07日 04時15分
+
+print '<br/>';
+//(3)タイムゾーンを指定する
+$dt1 = new DateTime(null,new DateTimeZone('Asia/Ulan_Bator'));
+print $dt1->format('Y年m月d日H時i分');//結果：2022年04月07日12時21分
+
+print '<br/>';
+$dt2 = new DateTime(null,new DateTimeZone('America/Virgin'));
+print $dt2->format('Y年m月d日H時i分');//結果：2022年04月07日00時21分
+
+print '<br/>';
+$dt3 = new DateTime(null,new DateTimeZone('Europe/London'));
+print $dt3->format('Y年m月d日H時i分');//結果：2022年04月07日05時22分
+
+
+print '<br/>';
+//(4)年月日、時分秒を個別に設定する
+$now = new DateTime();
+$now->setDate(2021, 6, 25);
+$now->setTime(14, 70, 59);
+print $now->format('Y年m月d日 H:i:s');//結果 2021年06月25日 15:10:59
+
+print '<br/>';
+//(5)タイムスタンプ値を設定する
+/*
+Unixタイムスタンプ（タイムスタンプ）とは、日付／時刻値を1970年01月01日00:00:00からの経過秒で表現したものです。
+timeは、現在の日時のタイムスタンプを求めるための日付／時刻関数です。
+setTimestampメソッドは、このようにタイムスタンプ値を返す関数からDateTimeオブジェクトを生成するのに役立ちます。
+*/
+$now = new DateTime();
+$now->setTimestamp(time());
+print $now->format('Y年m月d日 H:i:s');//結果 2022年04月07日 04:27:37
