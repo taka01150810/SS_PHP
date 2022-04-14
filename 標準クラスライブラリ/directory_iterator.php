@@ -45,8 +45,14 @@ $dir = new DirectoryIterator('./');
 foreach($dir as $file){
     //読み込んだ要素がファイルである(サブフォルダーなどではない)場合のみ表示処理
     if($file->isFile()){
-
+        //7.3.3 ファイル情報を取得する
     ?>
+        <tr>
+        <td><?= $file->getFileName(); ?></td>
+        <td><?= $file->getSize(); ?></td>
+        <td><?= date('Y/m/d H:i:s', $file->getATime()); ?></td>
+        <td><?= date('Y/m/d H:i:s', $file->getMTime()); ?></td>
+    </tr>
 <?php
     }
 }
