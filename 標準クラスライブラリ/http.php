@@ -28,3 +28,23 @@ $cli = new GuzzleHttp\Client([
 $res = $cli->request('get', 'https://google.com');
 //取得したコンテンツを出力
 print $res->getBody();
+
+//7.5.2 HTTP POSTによる通信
+/*
+get（HTTP GET）という命令を使ってHTTP通信を行いました。HTTP GETは、主にデータを取得するための命令です。
+リクエスト時に簡単なデータを送信することもできますが、サイズは制限されます。
+まとまったデータを送信するには、HTTP POSTを利用してください。
+*/
+require '../vendor/autoload.php';
+
+$cli = new GuzzleHttp\Client([
+    'base_uri' => 'https://yahoo.com',
+]);
+
+$res = $cli->post('https://yahoo.com',[
+    'form_params' => [
+        'name' => '宮中 良明',
+    ]
+]);
+
+print $res->getBody();
