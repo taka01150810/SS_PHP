@@ -7,3 +7,24 @@
 たとえばAmazonProductAdvertisingAPIを利用すれば、Amazonの膨大な商品データベースをあたかも自分のアプリの一部であるかのように
 （しかもも低コストで！）利用できるようになります。
 */
+
+//7.5.1 HTTP通信の基本
+/*
+autoload.phpはライブラリを自動ロードするためのコードです。
+Composerでインストールしたライブラリを利用する際には、
+あらかじめautoload.phpをインポートしておきます。
+*/
+require '../vendor/autoload.php';
+
+//クライアントを生成
+/*
+GuzzleHttp\ClientはGuzzleの中核とも言うべきクラスで、HTTP通信そのもの（リクエスト／レスポンス）を管理します。
+コンストラクターには「オプション名=>値」の形式で、動作オプションを指定できます。
+*/
+$cli = new GuzzleHttp\Client([
+    'base_uri' => 'https://google.com',
+]);
+//リクエストを送信
+$res = $cli->request('get', 'https://google.com');
+//取得したコンテンツを出力
+print $res->getBody();
